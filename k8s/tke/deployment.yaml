@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nacos
+  namespace: nacos
+  labels:
+    app: nacos
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nacos
+  template:
+    metadata:
+      labels:
+        app: nacos
+    spec:
+      # 若使用 TCR 私有镜像，取消注释并填写 secret 名称
+      # imagePullSecrets:
+      #   - name: tcr-secret
+      containers:
+        - name: nacos
+          image: tkeprod.tencentcloudcr.com/cyouops/nacos-server:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8848
+              name: server
+              protocol: TCP
+            - containerPort: 9848
+              name: client-rpc
+              protocol: TCP
+            - containerPort: 8080
+              name: console
+              protocol: TCP
+          env:
+            - name: MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: nacos-config
+                  key: MODE
+            - name: NACOS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: auth-token
+            - name: NACOS_AUTH_IDENTITY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: identity-key
+            - name: NACOS_AUTH_IDENTITY_VALUE
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: identity-value
+          readinessProbe:
+            tcpSocket:
+              port: 8848
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: 8848
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 500m
+              memory: 2Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi

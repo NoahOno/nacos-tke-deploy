@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nacos-config
+  namespace: nacos
+  labels:
+    app: nacos
+data:
+  MODE: "standalone"
