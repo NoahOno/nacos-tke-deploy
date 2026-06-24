@@ -18,7 +18,7 @@ spec:
         app: nacos
     spec:
       imagePullSecrets:
-        - name: tcr-secret
+        - name: tcr.ipstcr-aipxjlcl-public
       tolerations:
       - key: purpose
         operator: Equal
