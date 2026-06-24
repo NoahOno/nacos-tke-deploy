@@ -67,16 +67,16 @@ spec:
               value: "512m"
           readinessProbe:
             httpGet:
-              path: /nacos/v3/console/health/readiness
-              port: 8848
+              path: /v3/console/health/readiness
+              port: 8080
             initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /nacos/v3/console/health/readiness
-              port: 8848
+              path: /v3/console/health/readiness
+              port: 8080
             initialDelaySeconds: 180
             periodSeconds: 15
             timeoutSeconds: 5
