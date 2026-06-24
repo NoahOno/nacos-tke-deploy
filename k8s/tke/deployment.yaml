@@ -60,24 +60,24 @@ spec:
                   name: nacos-auth
                   key: identity-value
             - name: JVM_XMS
-              value: "2g"
-            - name: JVM_XMX
-              value: "2g"
-            - name: JVM_XMN
               value: "1g"
+            - name: JVM_XMX
+              value: "1g"
+            - name: JVM_XMN
+              value: "512m"
           readinessProbe:
             httpGet:
               path: /nacos/v1/console/health/readiness
               port: 8848
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 5
-            failureThreshold: 6
+            failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /nacos/v1/console/health/readiness
               port: 8848
-            initialDelaySeconds: 60
+            initialDelaySeconds: 180
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 6
