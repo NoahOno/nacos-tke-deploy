@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('检出') {
       steps {
-        checkout(scm)
+        git branch: params.BRANCH, url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID
       }
     }
 
