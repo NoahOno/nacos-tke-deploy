@@ -17,9 +17,13 @@ spec:
       labels:
         app: nacos
     spec:
-      # 若使用 TCR 私有镜像，取消注释并填写 secret 名称
-      # imagePullSecrets:
-      #   - name: tcr-secret
+      imagePullSecrets:
+        - name: tcr-secret
+      tolerations:
+      - key: purpose
+        operator: Equal
+        value: web-ywzdh
+        effect: NoSchedule
       containers:
         - name: nacos
           image: tkeprod.tencentcloudcr.com/cyouops/nacos-server:v1.0.0
