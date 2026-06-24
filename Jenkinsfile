@@ -4,7 +4,7 @@ pipeline {
   parameters {
     string(
       name: 'BRANCH',
-      defaultValue: 'main',
+      defaultValue: 'master',
       description: '要部署的分支'
     )
   }
@@ -15,8 +15,8 @@ pipeline {
         checkout([$class: 'GitSCM',
           branches: [[name: params.BRANCH]],
           userRemoteConfigs: [[
-            url: env.GIT_REPO_URL,
-            credentialsId: env.CREDENTIALS_ID
+            url: env.GIT_REPO_URL ?: 'https://github.com/NoahOno/nacos-tke-deploy.git',
+            credentialsId: env.CREDENTIALS_ID ?: ''
           ]]
         ])
       }
