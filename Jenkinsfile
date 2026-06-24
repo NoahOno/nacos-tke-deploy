@@ -12,13 +12,7 @@ pipeline {
   stages {
     stage('检出') {
       steps {
-        checkout([$class: 'GitSCM',
-          branches: [[name: params.BRANCH]],
-          userRemoteConfigs: [[
-            url: env.GIT_REPO_URL ?: 'https://github.com/NoahOno/nacos-tke-deploy.git',
-            credentialsId: env.CREDENTIALS_ID ?: ''
-          ]]
-        ])
+        checkout(scm)
       }
     }
 
