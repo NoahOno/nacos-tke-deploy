@@ -60,7 +60,15 @@ spec:
                 configMapKeyRef:
                   name: nacos-config
                   key: NACOS_AI_REGISTRY_ENABLED
-            # --- 认证（用户名/密码，官方推荐） ---
+            - name: NACOS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: auth-token
+            - name: NACOS_AUTH_IDENTITY_KEY
+              value: "nacos-id-8c85b5d2"
+            - name: NACOS_AUTH_IDENTITY_VALUE
+              value: "sriDC11dZHaXgrhwdV2Pa2sGcpBs9+sV"
             - name: NACOS_USERNAME
               valueFrom:
                 secretKeyRef:
