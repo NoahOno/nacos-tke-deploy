@@ -54,6 +54,10 @@ spec:
                   name: nacos-auth
                   key: password
             # --- MCP 路由 ---
+            - name: TRANSPORT_TYPE
+              value: "streamable_http"
+            - name: PORT
+              value: "8000"
             - name: MCP_SERVERS_LIST
               value: ""
           readinessProbe:
