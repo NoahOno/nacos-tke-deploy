@@ -61,16 +61,14 @@ spec:
             - name: MCP_SERVERS_LIST
               value: ""
           readinessProbe:
-            httpGet:
-              path: /health
+            tcpSocket:
               port: 8000
             initialDelaySeconds: 15
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
           livenessProbe:
-            httpGet:
-              path: /health
+            tcpSocket:
               port: 8000
             initialDelaySeconds: 30
             periodSeconds: 15
