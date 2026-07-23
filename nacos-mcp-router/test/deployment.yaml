@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nacos-mcp-router
+  namespace: nacos
+  labels:
+    app: nacos-mcp-router
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nacos-mcp-router
+  template:
+    metadata:
+      labels:
+        app: nacos-mcp-router
+    spec:
+      imagePullSecrets:
+        - name: tcr.ipstcr-aipxjlcl-public
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: purpose
+                    operator: In
+                    values:
+                      - zdhcs-devolp
+      tolerations:
+        - key: "purpose"
+          operator: "Equal"
+          value: "zdhcs-devolp"
+          effect: "NoSchedule"
+      containers:
+        - name: nacos-mcp-router
+          image: tkeprod.tencentcloudcr.com/cyouops/nacos-mcp-router:0.2.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
+          env:
+            # --- Nacos 连接 ---
+            - name: NACOS_SERVER_ADDR
+              value: "nacos.nacos.svc.cluster.local:8848"
+            - name: NACOS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: username
+            - name: NACOS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: password
+            # --- MCP 路由 ---
+            - name: MCP_SERVERS_LIST
+              value: ""
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

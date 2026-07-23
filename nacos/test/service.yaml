@@ -13,15 +13,12 @@ spec:
     - name: server
       port: 8848
       targetPort: 8848
-      nodePort: 30848
       protocol: TCP
     - name: client-rpc
       port: 9848
       targetPort: 9848
-      nodePort: 30948
       protocol: TCP
     - name: console
       port: 8080
       targetPort: 8080
-      nodePort: 31080
       protocol: TCP

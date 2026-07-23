@@ -7,3 +7,5 @@ metadata:
     app: nacos
 data:
   MODE: "standalone"
+  # 开启 AI Registry（MCP 自动注册）
+  NACOS_AI_REGISTRY_ENABLED: "true"
