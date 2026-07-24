@@ -33,7 +33,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: nacos-mcp-router
-          image: tkeprod.tencentcloudcr.com/cyouops/nacos-mcp-router:0.2.2
+          image: tkeprod.tencentcloudcr.com/cyouops/nacos-mcp-router:0.2.2-identity
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
