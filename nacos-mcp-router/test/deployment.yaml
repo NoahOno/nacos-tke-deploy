@@ -41,7 +41,7 @@ spec:
               protocol: TCP
           env:
             # --- Nacos 连接 ---
-            - name: NACOS_SERVER_ADDR
+            - name: NACOS_ADDR
               value: "nacos.nacos.svc.cluster.local:8848"
             - name: NACOS_USERNAME
               valueFrom:
