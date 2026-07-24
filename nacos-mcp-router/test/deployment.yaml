@@ -53,11 +53,6 @@ spec:
                 secretKeyRef:
                   name: nacos-auth
                   key: password
-            # --- Nacos identity 认证 ---
-            - name: NACOS_IDENTITY_KEY
-              value: "nacos-id-8c85b5d2"
-            - name: NACOS_IDENTITY_VALUE
-              value: "sriDC11dZHaXgrhwdV2Pa2sGcpBs9+sV"
             # --- Nacos identity ---
             - name: NACOS_IDENTITY_KEY
               value: "nacos-id-8c85b5d2"
