@@ -58,6 +58,11 @@ spec:
               value: "nacos-id-8c85b5d2"
             - name: NACOS_IDENTITY_VALUE
               value: "sriDC11dZHaXgrhwdV2Pa2sGcpBs9+sV"
+            # --- Nacos identity ---
+            - name: NACOS_IDENTITY_KEY
+              value: "nacos-id-8c85b5d2"
+            - name: NACOS_IDENTITY_VALUE
+              value: "sriDC11dZHaXgrhwdV2Pa2sGcpBs9+sV"
             # --- MCP 路由 ---
             - name: TRANSPORT_TYPE
               value: "streamable_http"
